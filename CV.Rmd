@@ -1,0 +1,121 @@
+---
+title: "Amanda Stott, PhD"
+author: "Data Science | Software Solutions Architecture | AI/ML Data Engineering"
+date: \`r format(Sys.Date(), "%m-%d-%Y")`\
+output: "html_document"
+this: "R Code"
+puts: "This is #{this}"
+---
+
+```{r include=F, warning=F, echo=FALSE, comment=""}
+
+library(tidyverse)
+library(ggplot2)
+library(data.table)
+library(dplyr)
+library(data.table)
+library(knitr)
+library(kableExtra)
+
+```
+
+```{r include=F, warning=F, echo=FALSE, comment=""}
+
+exp_lang <- data.table(character(13), numeric(13), stringsAsFactors = FALSE)
+exp_tech <- data.table(character(10), numeric(10), stringsAsFactors = FALSE)
+exp_agile <- data.table(character(5), numeric(5), stringsAsFactors = FALSE)
+exp_ml <- data.table(character(5), numeric(5), stringsAsFactors = FALSE)
+
+exp_lang[,1] <- c('R', 'Python', 'C++', 'JavaScript', 'Ruby', 'C#', 'Java', 'Clojure', 'Erlang', 'Julia', 'Scala', 'Go', 'PHP')
+exp_lang[,2] <- as.integer(c('5', '5', '5', '5', '4', '4', '4', '3', '3', '3', '3', '3', '3'))
+
+
+colnames(exp_lang) <- c('Programming Language', 'Experience (1 to 5)')
+
+
+exp_tech[,1] <- c('Relational Databases (Oracle, MySql, Postgres)',
+                  'NoSQL Databases (MongoDB, neo4J)',
+                  'Apache Spark with Hadoop and Map Reduce',
+                  'ELK Stack', 
+                  'Splunk', 
+                  'CI/CD Deployments to Cloud Services (AWS, Azure)',
+                  'DevOps Stack Maintenance (Ansible, Terraform, Packer)',
+                  'Unit Testing - From Technical Documentation to Implementation',
+                  'Full Stack Web Development (MVC Frameworks in Python, C#, Ruby, PHP',
+                  'Machine Learning Algorithm Development and Optimization')
+
+exp_tech[,2] <- as.integer(c('10', '5', '3', '3', '1', '5', '5', '7', '10'))
+
+
+colnames(exp_tech) <- c('Technology', 'Years of Experience')
+
+exp_agile[,1] <- c('Kanban (JIRA, Trello)', 
+                   'Version Control (GIT/Bitbucket/SVN)',
+                   'Writing Functional & Techincal Documentation', 
+                   'Writing Budgetary Proposals & Securing Departmental Funding',
+                   'Streamlining Process Flows and Improving Productivity')
+
+exp_agile[,2] <- as.integer(c('30', '10', '150', '10', '50'))
+
+colnames(exp_agile) <- c('Tool or Methodology', 'Size of Team')
+
+exp_ml[,1] <- c('Baysean Statistics', 
+                   'Clustering',
+                   'Numerical Analysis of Complex Systems', 
+                   'Feature Selection',
+                   'Model Development, Testing, Validation, & Implementation')
+
+exp_ml[,2] <- as.integer(c('4', '5', '5', '3', '5'))
+
+colnames(exp_ml) <- c('Method', 'Experience (1 to 5)')
+
+# Bar plot of the frequency for the top10
+
+bp <- ggplot(exp_lang, aes(`Programming Language`, 
+                           `Experience (1 to 5)`, 
+                           color = `Programming Language`,
+                           fill = `Programming Language`)) + 
+  geom_bar(stat = "identity") + 
+  geom_hline(yintercept = seq(0, 5, 1), col = "white", lwd = 1)  +
+  coord_polar() +
+  theme_bw() + 
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        axis.line = element_line(colour = "black")) +
+  xlab("Programming Language") +
+  ylab("Competency") +
+  ylim(0,5) +
+  ggtitle("Programming Languages by Competency")
+
+pi <- bp + coord_polar("x", start=0)
+
+```
+
+## Skills:
+
+### Programming Languages
+
+```{r , echo=FALSE}
+
+bp
+
+```
+
+### Technical Expertise 
+
+```{r , echo=FALSE}
+
+kable(exp_tech, "html", sep="-") %>%
+  kable_styling(full_width = F, position = "center") 
+
+```
+
+### Project Management 
+
+```{r , echo=FALSE}
+
+kable(exp_agile, "html", sep="-") %>%
+  kable_styling(full_width = F, position = "center") 
+
+```
+
